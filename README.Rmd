@@ -27,4 +27,134 @@ There are 3 main packages for reading JSON data into R: `rjson`, `RJSONIO`, and 
   
 # Connecting to NHL API  
   
+This section creates functions to pull data from the NHL API and uses those functions to create data frames.  
+  
+```{r franchise}
+
+#Function to call /franchise
+get_franchise <- function(){
+  
+  #Initializing variables and creating API call
+  base_url <- 'https://records.nhl.com/site/api/' #Setting Base URL
+  end <- 'franchise' #Setting end of url
+  call <- paste0(base_url, end) #Pasting together
+  
+  #Creating get request, extracting text, and converting to R object
+  get_req <- GET(call)
+  text <- content(get_req, as = 'text')
+  json <- fromJSON(text, flatten = TRUE)
+  
+  #Returning final data frame
+  return(as.data.frame(json))
+}
+
+```
+  
+``` {r franchise totals}
+
+#Function to call /franchise-team-totals
+get_franchise_totals <- function(){
+  
+  #Initializing variables and creating API call
+  base_url <- 'https://records.nhl.com/site/api/' #Setting Base URL
+  end <- 'franchise-team-totals' #Setting end of url
+  call <- paste0(base_url, end) #Pasting together
+  
+  #Creating get request, extracting text, and converting to R object
+  get_req <- GET(call)
+  text <- content(get_req, as = 'text')
+  json <- fromJSON(text, flatten = TRUE)
+  
+  #Returning final data frame
+  return(as.data.frame(json))
+}
+
+```
+  
+``` {r seasons records}
+
+#Function to call /franchise-season-records
+get_season_records <- function(ID){
+  
+  if(is.numeric(ID) & ID %in% 1:38){
+  
+    #Initializing variables and creating API call
+    base_url <- 'https://records.nhl.com/site/api/' #Setting Base URL
+    end <- 'franchise-season-records?cayenneExp=franchiseId=' #Setting end of url
+    call <- paste0(base_url, end, ID) #Pasting together
+  
+    #Creating get request, extracting text, and converting to R object
+    get_req <- GET(call)
+    text <- content(get_req, as = 'text')
+    json <- fromJSON(text, flatten = TRUE)
+  
+    #Returning final data frame
+    return(as.data.frame(json))
+    
+  } else stop('Please enter a valid franchise ID')
+}
+
+``` 
+  
+``` {r goalie records}
+
+#Function to call /franchise-goalie-records
+get_goalie_records <- function(ID){
+  
+  if(is.numeric(ID) & ID %in% 1:38){
+  
+    #Initializing variables and creating API call
+    base_url <- 'https://records.nhl.com/site/api/' #Setting Base URL
+    end <- 'franchise-goalie-records?cayenneExp=franchiseId=' #Setting end of url
+    call <- paste0(base_url, end, ID) #Pasting together
+  
+    #Creating get request, extracting text, and converting to R object
+    get_req <- GET(call)
+    text <- content(get_req, as = 'text')
+    json <- fromJSON(text, flatten = TRUE)
+  
+    #Returning final data frame
+    return(as.data.frame(json))
+    
+  } else stop('Please enter a valid franchise ID')
+}
+
+```
+  
+``` {r skater records}
+
+#Function to call /franchise-skater-records
+get_skater_records <- function(ID){
+  
+  if(is.numeric(ID) & ID %in% 1:38){
+  
+    #Initializing variables and creating API call
+    base_url <- 'https://records.nhl.com/site/api/' #Setting Base URL
+    end <- 'franchise-skater-records?cayenneExp=franchiseId=' #Setting end of url
+    call <- paste0(base_url, end, ID) #Pasting together
+  
+    #Creating get request, extracting text, and converting to R object
+    get_req <- GET(call)
+    text <- content(get_req, as = 'text')
+    json <- fromJSON(text, flatten = TRUE)
+  
+    #Returning final data frame
+    return(as.data.frame(json))
+    
+  } else stop('Please enter a valid franchise ID')
+}
+
+```
+
+``` {r data frames}
+
+#Creating Data Frames from API calls
+franchise <- get_franchise()
+franchise_totals <- get_franchise_totals()
+season_records <- get_season_records(31)
+goalie_records <- get_goalie_records(31)
+skater_records <- get_skater_records(31)
+
+```
+  
 # EDA on NHL Data  
