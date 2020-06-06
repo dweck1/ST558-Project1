@@ -23,6 +23,8 @@ JSON (short for JavaScript Object Notation) is a format that is used to store an
   
 # R Packages for JSON  
   
+There are 3 main packages for reading JSON data into R: `rjson`, `RJSONIO`, and `jsonlite`. Information on `rjson` and `RJSONIO`, respectively, can be found [here](https://cran.r-project.org/web/packages/rjson/rjson.pdf) and [here](https://cran.r-project.org/web/packages/RJSONIO/RJSONIO.pdf). In this section, I will be focusing on `jsonlite`. `jsonlite` is an R package with efficient tools for reading and creating JSON data. I have chosen it because it is one of the best packages available for communicating with and retrieving data from APIs through R. One of the most important functions in `jsonlite` is `fromJSON`. This function allows for smooth and fast retrieval of JSON data from a JSON string, URL, or file. Another important function, which is also an argument to `fromJSON`, is `flatten`. In JSON data, it is common to see data frames within other data frames. The `flatten` function/argument converts JSON data with this structure into the 2D structure usually desired for data frames. There are many other functions that make `jsonlite` an excellent package for reading JSON data into R. More information about `jsonlite` can be found [here](https://cran.r-project.org/web/packages/jsonlite/jsonlite.pdf)
+  
 # Connecting to NHL API  
   
 # EDA on NHL Data  
