@@ -1,0 +1,28 @@
+---
+title: "Project 1"
+author: "David Weck"
+date: "6/6/2020"
+output:
+     rmarkdown::github_document:
+       toc: true
+       toc_depth: 1
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
+
+#Loading required packages
+library(tidyverse)
+library(httr)
+library(jsonlite)
+```
+
+# About JSON  
+  
+JSON (short for JavaScript Object Notation) is a format that is used to store and transfer data. It is text-only format that mirrors the syntax of JavaScript objects, which allows it to be conveniently read and written by people. It is comprised of key/value pairs and arrays, which are structures ubiquitous across nearly all programming languages. Additionally, JSON requires a relatively small amount of computer overhead and can be interpreted by virtually all languages. It is these characteristics that make JSON format an excellent way to store and transfer data. [(Source)](https://www.json.org/json-en.html) All of these characteristics also make JSON a very widely used method for data exchange. Many web applications use JSON to transfer data back and forth with servers, and APIs often store data in JSON format to allow for easy retrieval from users. As mentioned earlier, nearly all programming languages support JSON, further allowing widespread use of the format. [(Source)](https://www.tutorialspoint.com/json/json_overview.htm)
+  
+# R Packages for JSON  
+  
+# Connecting to NHL API  
+  
+# EDA on NHL Data  
