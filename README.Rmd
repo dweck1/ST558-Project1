@@ -151,10 +151,85 @@ get_skater_records <- function(ID){
 #Creating Data Frames from API calls
 franchise <- get_franchise()
 franchise_totals <- get_franchise_totals()
-season_records <- get_season_records(31)
-goalie_records <- get_goalie_records(31)
-skater_records <- get_skater_records(31)
 
+#Initializing data frames
+season_records <- goalie_records <- skater_records <- NULL
+
+#Looping through all team IDs and combining datasets
+for(ID in 1:38){
+  
+  temp1 <- get_season_records(ID)
+  season_records <- rbind(season_records, temp1)
+  
+  temp2 <- get_goalie_records(ID)
+  goalie_records <- rbind(goalie_records, temp2)
+  
+  temp3 <- get_skater_records(ID)
+  skater_records <- rbind(skater_records, temp3)
+  
+}
 ```
   
 # EDA on NHL Data  
+```{r numerical summaries}
+#Coming soon
+```
+  
+```{r bar chart}
+
+#Filtering  skater records down to active Lightning forwards with min 300 games
+active <- skater_records %>% 
+  filter(data.activePlayer == TRUE, 
+         data.gamesPlayed >= 300, 
+         data.positionCode != 'D',
+         data.franchiseId == 31) %>%
+  mutate(fullName = paste(data.firstName, data.lastName, sep = ' '), #Merging first and last name
+         goalsPerGame = data.goals / data.gamesPlayed)   #Creating goals per game stat
+
+#Creating plot object and bar chart of goals per game
+g <- ggplot(active, aes(x = fullName, y = goalsPerGame))
+g + geom_bar(aes(fill = fullName), stat = 'identity', show.legend = FALSE) + 
+  coord_flip() +
+  labs(x = 'Player', y = 'Goals Per Game', 
+       title = 'Goals Per Game of Active Lightning Forwards (Min. 300 Games Played)')
+```
+  
+I created goals per game statistic to get an understanding of which players are the most efficient scorers. Steven Stamkos and Nikita Kucherov stand out as the most efficient goal scorers among active Lightning players. Stamkos, remarkably, scores a goal every two games.
+  
+```{r boxplot}
+
+#Creating box-plot of log penalty minutes by position
+#Using log scale because distribution is very skewed
+h <- ggplot(skater_records, aes(x = data.positionCode, y = log(data.penaltyMinutes)))
+h + geom_boxplot(aes(fill = data.positionCode), show.legend = FALSE) +
+  scale_x_discrete(labels = c('Center', 'Defense', 'Left Wing', 'Right Wing')) +
+  labs(x = 'Position', y = 'Log of Penalty Minutes', 
+       title = 'Boxplots of Log Penalty Minutes by Position')
+
+```
+  
+This plot displays boxplots of log career penalty minutes by position. I used log penalty minutes because the distribution of penalty minutes is so heavily skewed. As you can see, it appears defenders generally accumulate slightly more penalty minutes in their careers than other positions. Centers appear to accumulate slightly less penalty minutes. The player with the most penalty minutes in his career was a Right Wing.  
+  
+```{r scatterplot}
+
+#Filtering to include current teams only and creating per game stats
+current <- franchise_totals %>%
+  filter(is.na(data.lastSeasonId)) %>%
+  mutate(penaltyMinutesPerGame = data.penaltyMinutes / data.gamesPlayed,
+         winRatio = data.wins / data.gamesPlayed)
+
+#Changing game type into a factor
+current$data.gameTypeId <- as.factor(current$data.gameTypeId)
+         
+#Plotting scatterplot and fitted lines
+l <- ggplot(current, aes(x = penaltyMinutesPerGame, y = winRatio))
+l + geom_point(aes(color = data.gameTypeId)) +
+  geom_smooth(aes(group = data.gameTypeId, color = data.gameTypeId), method = 'lm', se = FALSE) +
+  scale_color_discrete(name = 'Game Type', 
+                      labels = c('Regular Season', 'Playoff')) +
+  labs(x = 'Penalty Minutes per Game', y = 'Franchise Win/Loss Ratio',
+       title = 'Franchise Win/Loss Ratio Vs Penalty Minutes per Game')
+
+```
+  
+From this plot, we can see that in the regular season, franchises with more penalty minutes per game tend to have a lower overall win-loss ratio. The opposite seems tends to be the case in the playoffs, although the correlation is quite low in both cases.
