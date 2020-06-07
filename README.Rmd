@@ -171,9 +171,28 @@ for(ID in 1:38){
 ```
   
 # EDA on NHL Data  
-```{r numerical summaries}
-#Coming soon
+  
+```{r numerical summary 1}
+
+#Creating table of position code and most goals scored in one game
+knitr::kable(table(skater_records$data.positionCode, skater_records$data.mostGoalsOneGame),
+             caption = 'Table of Most Goals Scored in One Game by Each Position')
+
 ```
+  
+This table shows that most defenders only ever score 1 goal in a game. We can also see that centers are more likely than other positions to have games where they score a lot of goals.  
+  
+```{r numerical summary 2}
+
+#Filtering skaters to active skaters only
+active <- filter(skater_records, data.activePlayer == TRUE)
+
+#Creating table of position code by team
+knitr::kable(table(active$data.franchiseName, active$data.positionCode),
+             caption = 'Table of Position Count by Team')
+```
+  
+This table gives a roster breakdown of each team. It shows how many players of each position, excluding goalie, each team has on their current roster.  
   
 ```{r bar chart}
 
