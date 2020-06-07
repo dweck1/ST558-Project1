@@ -210,7 +210,7 @@ g <- ggplot(active, aes(x = fullName, y = goalsPerGame))
 g + geom_bar(aes(fill = fullName), stat = 'identity', show.legend = FALSE) + 
   coord_flip() +
   labs(x = 'Player', y = 'Goals Per Game', 
-       title = 'Goals Per Game of Active Lightning Forwards (Min. 300 Games Played)')
+       title = 'Goals Per Game of Active Lightning Forwards (Min. 300 Games)')
 ```
   
 I created goals per game statistic to get an understanding of which players are the most efficient scorers. Steven Stamkos and Nikita Kucherov stand out as the most efficient goal scorers among active Lightning players. Stamkos, remarkably, scores a goal every two games.
