@@ -158,16 +158,17 @@ season_records <- goalie_records <- skater_records <- NULL
 #Looping through all team IDs and combining datasets
 for(ID in 1:38){
   
-  temp1 <- get_season_records(ID)
-  season_records <- rbind(season_records, temp1)
+  season_records[[ID]] <- get_season_records(ID)
   
-  temp2 <- get_goalie_records(ID)
-  goalie_records <- rbind(goalie_records, temp2)
+  goalie_records[[ID]] <- get_goalie_records(ID)
   
-  temp3 <- get_skater_records(ID)
-  skater_records <- rbind(skater_records, temp3)
+  skater_records[[ID]] <- get_skater_records(ID)
   
 }
+
+season_records <- bind_rows(season_records)
+goalie_records <- bind_rows(goalie_records)
+skater_records <- bind_rows(skater_records)
 
 #Printing out the head of each data set
 head(franchise)
