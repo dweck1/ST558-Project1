@@ -168,6 +168,13 @@ for(ID in 1:38){
   skater_records <- rbind(skater_records, temp3)
   
 }
+
+#Printing out the head of each data set
+head(franchise)
+head(franchise_totals)
+head(season_records)
+head(goalie_records)
+head(skater_records)
 ```
   
 # EDA on NHL Data  
