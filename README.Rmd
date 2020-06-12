@@ -50,7 +50,7 @@ get_franchise <- function(){
 
 ```
   
-``` {r franchise totals}
+``` {r franchise_totals}
 
 #Function to call /franchise-team-totals
 get_franchise_totals <- function(){
@@ -71,7 +71,7 @@ get_franchise_totals <- function(){
 
 ```
   
-``` {r seasons records}
+``` {r seasons_records}
 
 #Function to call /franchise-season-records
 get_season_records <- function(ID){
@@ -96,7 +96,7 @@ get_season_records <- function(ID){
 
 ``` 
   
-``` {r goalie records}
+``` {r goalie_records}
 
 #Function to call /franchise-goalie-records
 get_goalie_records <- function(ID){
@@ -121,7 +121,7 @@ get_goalie_records <- function(ID){
 
 ```
   
-``` {r skater records}
+``` {r skater_records}
 
 #Function to call /franchise-skater-records
 get_skater_records <- function(ID){
@@ -146,7 +146,7 @@ get_skater_records <- function(ID){
 
 ```
 
-``` {r data frames}
+``` {r data_frames}
 
 #Creating Data Frames from API calls
 franchise <- get_franchise()
@@ -176,7 +176,7 @@ skater_records <- bind_rows(skater_records)
   
 This table shows that most defenders only ever score 1 goal in a game. We can also see that centers are more likely than other positions to have games where they score a lot of goals.  
   
-```{r numerical summary 1}
+```{r numerical_summary1}
 
 #Creating table of position code and most goals scored in one game
 knitr::kable(table(skater_records$data.positionCode, skater_records$data.mostGoalsOneGame),
@@ -186,7 +186,7 @@ knitr::kable(table(skater_records$data.positionCode, skater_records$data.mostGoa
   
   This table gives a roster breakdown of each team. It shows how many players of each position, excluding goalie, each team has on their current roster.  
   
-```{r numerical summary 2}
+```{r numerical_summary2}
 
 #Filtering skaters to active skaters only
 active <- filter(skater_records, data.activePlayer == TRUE)
@@ -197,7 +197,7 @@ knitr::kable(table(active$data.franchiseName, active$data.positionCode),
 ```
   
   
-```{r bar chart}
+```{r barchart}
 
 #Filtering  skater records down to active Lightning forwards with min 300 games
 active <- skater_records %>% 
@@ -216,7 +216,8 @@ g + geom_bar(aes(fill = fullName), stat = 'identity', show.legend = FALSE) +
        title = 'Goals Per Game of Active Lightning Forwards (Min. 300 Games)')
 ```
   
-I created goals per game statistic to get an understanding of which players are the most efficient scorers. Steven Stamkos and Nikita Kucherov stand out as the most efficient goal scorers among active Lightning players. Stamkos, remarkably, scores a goal every two games.
+I created goals per game statistic to get an understanding of which players are the most efficient scorers. Steven Stamkos and Nikita Kucherov stand out as the most efficient goal scorers among active Lightning players. Stamkos, remarkably, scores a goal every two games.  
+  
   
 ```{r boxplot}
 
@@ -231,6 +232,7 @@ h + geom_boxplot(aes(fill = data.positionCode), show.legend = FALSE) +
 ```
   
 This plot displays boxplots of log career penalty minutes by position. I used log penalty minutes because the distribution of penalty minutes is so heavily skewed. As you can see, it appears defenders generally accumulate slightly more penalty minutes in their careers than other positions. Centers appear to accumulate slightly less penalty minutes. The player with the most penalty minutes in his career was a Right Wing.  
+  
   
 ```{r scatterplot}
 

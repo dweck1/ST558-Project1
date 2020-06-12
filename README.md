@@ -186,6 +186,10 @@ skater_records <- bind_rows(skater_records)
 
 # EDA on NHL Data
 
+This table shows that most defenders only ever score 1 goal in a game.
+We can also see that centers are more likely than other positions to
+have games where they score a lot of goals.
+
 ``` r
 #Creating table of position code and most goals scored in one game
 knitr::kable(table(skater_records$data.positionCode, skater_records$data.mostGoalsOneGame),
@@ -201,9 +205,9 @@ knitr::kable(table(skater_records$data.positionCode, skater_records$data.mostGoa
 
 Table of Most Goals Scored in One Game by Each Position
 
-This table shows that most defenders only ever score 1 goal in a game.
-We can also see that centers are more likely than other positions to
-have games where they score a lot of goals.
+This table gives a roster breakdown of each team. It shows how many
+players of each position, excluding goalie, each team has on their
+current roster.
 
 ``` r
 #Filtering skaters to active skaters only
@@ -250,10 +254,6 @@ knitr::kable(table(active$data.franchiseName, active$data.positionCode),
 
 Table of Position Count by Team
 
-This table gives a roster breakdown of each team. It shows how many
-players of each position, excluding goalie, each team has on their
-current roster.
-
 ``` r
 #Filtering  skater records down to active Lightning forwards with min 300 games
 active <- skater_records %>% 
@@ -272,7 +272,7 @@ g + geom_bar(aes(fill = fullName), stat = 'identity', show.legend = FALSE) +
        title = 'Goals Per Game of Active Lightning Forwards (Min. 300 Games)')
 ```
 
-![](README_files/figure-gfm/bar%20chart-1.png)<!-- -->
+![](README_files/figure-gfm/barchart-1.png)<!-- -->
 
 I created goals per game statistic to get an understanding of which
 players are the most efficient scorers. Steven Stamkos and Nikita
