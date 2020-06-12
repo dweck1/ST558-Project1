@@ -3,9 +3,9 @@ title: "Project 1"
 author: "David Weck"
 date: "6/6/2020"
 output:
-     rmarkdown::github_document:
-       toc: true
-       toc_depth: 1
+    rmarkdown::github_document:
+      toc: true
+      toc_depth: 1
 ---
 
 ```{r setup, include=FALSE}
