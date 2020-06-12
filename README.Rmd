@@ -170,12 +170,6 @@ season_records <- bind_rows(season_records)
 goalie_records <- bind_rows(goalie_records)
 skater_records <- bind_rows(skater_records)
 
-#Printing out the head of each data set
-head(franchise)
-head(franchise_totals)
-head(season_records)
-head(goalie_records)
-head(skater_records)
 ```
   
 # EDA on NHL Data  
