@@ -272,7 +272,7 @@ g + geom_bar(aes(fill = fullName), stat = 'identity', show.legend = FALSE) +
        title = 'Goals Per Game of Active Lightning Forwards (Min. 300 Games)')
 ```
 
-![](README_files/figure-gfm/barchart-1.png)<!-- -->
+![barchart-1.png](README_files/figure-gfm/barchart-1.png)<!-- -->
 
 I created goals per game statistic to get an understanding of which
 players are the most efficient scorers. Steven Stamkos and Nikita
@@ -289,7 +289,7 @@ h + geom_boxplot(aes(fill = data.positionCode), show.legend = FALSE) +
        title = 'Boxplots of Log Penalty Minutes by Position')
 ```
 
-![](README_files/figure-gfm/boxplot-1.png)<!-- -->
+![boxplot-1.png](README_files/figure-gfm/boxplot-1.png)<!-- -->
 
 This plot displays boxplots of log career penalty minutes by position. I
 used log penalty minutes because the distribution of penalty minutes is
@@ -318,7 +318,7 @@ l + geom_point(aes(color = data.gameTypeId)) +
        title = 'Franchise Win/Loss Ratio Vs Penalty Minutes per Game')
 ```
 
-![](README_files/figure-gfm/scatterplot-1.png)<!-- -->
+![scatterplot-1.png](README_files/figure-gfm/scatterplot-1.png)<!-- -->
 
 From this plot, we can see that in the regular season, franchises with
 more penalty minutes per game tend to have a lower overall win-loss
